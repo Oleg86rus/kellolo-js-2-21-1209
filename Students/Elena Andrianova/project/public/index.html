@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>The Brand</title>
-    <link rel="stylesheet" href="../src/layout/styles/css/styles.css">
+    
     <script src="https://kit.fontawesome.com/861689887d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../src/layout/styles/css/styles.css">
 </head>
 <body>
-   
+   <div id="app">
     <div class="header container">
 		<a href="#" class="logo">Bran<span>d</span></a>
   		
@@ -22,26 +24,35 @@
 
 
         <div class="headerCart" >
-
-
-
-            <button id="basket-toggler" class="header__cart"><img src="../src/assets/imgs/cart.png" alt="cart" class="header__cart"> </button>
-
-
- 
-
-            <div class="headerCartWrap invisible" id="basket">
-
-
+            <button id="basket-toggler" class="header__cart"><img src="../src/assets/imgs/cart.png" alt="cart" class="header__cart"  @click="showCalc = !showCalc"></button>
+            <div id="basket" class="headerCartWrap" v-show="showCalc">
                 <div class="headerCartWrapInAll">
-                    <div id="basket-items" class="headerCartWrapInAll">
+
+
+
+                    <div class="headerCartWrapIn" v-for="item of basketItems">
+                        <div class="basketItemImg"><img :src="item.productImg" alt="productPhoto" width="85" height="100"></div>
+
+                            <div class="basketInfoProduct">
+                                            <div class="BasketItemName">{{item.productName}}</div>
+                                            <span>
+                                                <i class="fas fa-star goldenStar"></i>
+                                                <i class="fas fa-star goldenStar"></i>
+                                                <i class="fas fa-star goldenStar"></i>
+                                                <i class="fas fa-star goldenStar"></i>
+                                                <i class="fas fa-star-half-alt goldenStar"></i>
+                                            </span>
+                            <div class="headerCartWrapPrice">{{item.amount}}<span>x</span> ${{item.productPrice}}</div>
+                        </div>
+                        <button class="fas fa-times-circle" :data-id="item.productId" @click="removeItem(item)" name="remove"></button>
                     </div>
+
+
 
                     <div class="headerCartWrapTotalPrice">
                         <div>total</div>
                         <div>$500.00</div>
                     </div>
-
                     <button type="button" class="productsButtonIndex">Checkout</button>
                     <button type="button" class="productsButtonIndex">Go to cart</button>
                 </div>
@@ -57,8 +68,6 @@
 
 
     <div class="headerLine"></div>
-   
-
     <div class="topNav container">
             <a href="#">Home</a>
             <a href="#">Man</a>
@@ -77,7 +86,6 @@
             </div>
         </div>
     </div>
-    
     <div class="category container">
        
         <div class="category__banner">
@@ -111,152 +119,46 @@
     </div>
 
 
-    <!--Здесь будут вставляться товары созданные product.js-->
-
     <div class="product container">
         <div class="product-top-text">
             <h3>Featured Items</h3>
             <p>Shop for items based on what we featured in this week</p>
         </div>
-
-
-
-        <!-- Сюда вставляем сгененрированный htmlstr-->
-
-
-        <!-- Сюда вставляем сгененрированный htmlstr-->
-
-
-
         <div class="product-item" id="catalog">
-            <div class="item">
+
+
+
+            <div class="item" v-for="item in catalogItems">
                 <div class="itemImg">
                     <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
+                        <button
+                                name="add"
+                                :data-id="item.productId"
+                                :data-name="item.productName"
+                                :data-price="item.productPrice"
+                                :data-img="item.productImg"
+                                @click="buy(item)"
+                        >
+                            <img src="../src/assets/imgs/cart2.png" alt="imgCart">
                             Add to Cart
                         </button>
-
                     </div>
-                    <img src="../src/assets/imgs/Layer_2.jpg" alt="img">
+                    <img :src="item.productImg" alt="imgProduct">
                 </div>
                 <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
+                    <a href="#">{{item.productName}}</a>
+                    <p> $ {{item.productPrice}}</p>
                 </div>
             </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_3.jpg" alt="img">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_4.jpg" alt="img1">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_5.jpg" alt="img1">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_6.jpg" alt="img">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_7.jpg" alt="img">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_8.jpg" alt="img">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="itemImg">
-                    <div class="itemImgHover">
-                        <button>
-                            <img src="../src/assets/imgs/cart2.png" alt="img">
-                            Add to Cart
-                        </button>
 
-                    </div>
-                    <img src="../src/assets/imgs/Layer_9.jpg" alt="img">
-                </div>
-                <div class="itemText">
-                    <a href="#">Mango people t-shirt</a>
-                    <p>$52.00</p>
-                </div>
-            </div>
+
+
 
         </div>
            <button name="browseAllProduct" class="product__all">Browse All Product&nbsp;<i class="fas fa-long-arrow-alt-right"></i></button>
@@ -309,14 +211,14 @@
            </div>
            <div class="line"></div>
            <div class="subscribe__blockFeedback">
-              <div class="subscribe__blockFeedback-text">
-                   <h3>Subscribe</h3>
-                   <p>For our newletter and promotion</p>
-              </div>
-                <form action="subscribe-form"  class="subscribeForm">
-                        <input type="email" name="mail" placeholder="Enter Your Email">
-                       <button>Subscribe</button>
-                </form>
+                  <div class="subscribe__blockFeedback-text">
+                       <h3>Subscribe</h3>
+                       <p>For our newletter and promotion</p>
+                  </div>
+                    <form action="subscribe-form"  class="subscribeForm">
+                            <input type="email" name="mail" placeholder="Enter Your Email">
+                           <button>Subscribe</button>
+                    </form>
           
            </div>
         </div>
@@ -374,9 +276,10 @@
        </div>
 
     </div>
+   </div>
 
-    <script src="../src/components/basket.js"></script>
-    <script src="../src/components/catalog.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="../src/components/appVue.js"></script>
     
     
 </body>
